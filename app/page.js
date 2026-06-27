@@ -83,7 +83,7 @@ export default function KronbergChatbot() {
   }, [showBeraterPanel, beraterAnalysis]);
 
   const startSession = () => {
-    const opening = "Sie haben 20 Minuten. Was genau wollen Sie mir heute zu Projekt Fokus26 präsentieren?";
+    const opening = "Sie haben 20 Minuten. Präsentieren Sie mir bitte Ihren Veränderungsprozess zum Projekt Fokus26.";
     setMessages([{ role: "assistant", content: opening }]);
     setHasStarted(true);
     setTimeout(() => inputRef.current?.focus(), 100);
