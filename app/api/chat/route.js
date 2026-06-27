@@ -100,11 +100,7 @@ Die Bewertung ist kurz und direkt – ein Vorstand, der das nächste Meeting sch
 
 export async function POST(req) {
   try {
-    const { messages, useAdvisorMode } = await req.json();
-
-    const systemPrompt = useAdvisorMode
-      ? "Du bist ein erfahrener Strategie- und Organisationsberater. Antworte ausschließlich auf Deutsch. Analysiere sachlich, strukturiert und ohne Floskeln."
-      : KRONBERG_PROMPT;
+    const { messages } = await req.json();
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -114,12 +110,12 @@ export async function POST(req) {
       },
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
-        max_tokens: useAdvisorMode ? 2000 : 1000,
-        temperature: useAdvisorMode ? 0.4 : 0.85,
-        frequency_penalty: useAdvisorMode ? 0.1 : 0.6,
-        presence_penalty: useAdvisorMode ? 0.1 : 0.4,
+        max_tokens: 1000,
+        temperature: 0.85,
+        frequency_penalty: 0.6,
+        presence_penalty: 0.4,
         messages: [
-          { role: "system", content: systemPrompt },
+          { role: "system", content: KRONBERG_PROMPT },
           ...messages,
         ],
       }),
